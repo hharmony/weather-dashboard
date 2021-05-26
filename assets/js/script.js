@@ -1,14 +1,5 @@
-/* 
-6.2.4 to handle form submission 
-
-submit form, get value from input element (nameinputEl) and store it into its own variable (username)
-.trim() to get rid of trailing or leading spaces
-check value in username variable - pass it to getUserRepos
-
-uses form to search github repos, next will display
-
-api: api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1a41d11e381d8d69893453d1845cf5b8
-*/
+var cityFormEl = document.querySelector("#city-form"); //userFormEl
+var nameInputEl = document.querySelector("#city-name");
 
 var getWeather = function(city) {
     //open weather api
@@ -23,7 +14,33 @@ var getWeather = function(city) {
 };
 
 
-getWeather("New York");
+var formSubmitHandler = function(event) {
+    //stops browser from performing default action - submitting form, prevents input data going to a url
+    event.preventDefault();
+    //get value from input element and put into getWeather()
+    var cityname = nameInputEl.value.trim();
+    if (cityname) {
+        getWeather(cityname);
+        nameInputEl.value = "";
+    } else {
+        alert("Please enter a city name");
+    }
+};
+
+cityFormEl.addEventListener("submit", formSubmitHandler);
+
+
+/* 
+6.2.4 to handle form submission 
+
+submit form, get value from input element (nameinputEl) and store it into its own variable (username)
+.trim() to get rid of trailing or leading spaces
+check value in username variable - pass it to getUserRepos
+
+uses form to search github repos, next will display
+
+api: api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1a41d11e381d8d69893453d1845cf5b8
+*/
 /* 
 6.2.5 displaying repo
 
