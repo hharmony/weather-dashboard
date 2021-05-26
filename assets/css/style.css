@@ -1,0 +1,9 @@
+.hero {
+    background-image: linear-gradient(to right, rgb(137, 137, 221), rgb(0, 0, 78));
+    text-align: center;
+}
+
+.hero h1 {
+    color: white;
+    padding: 10px
+}

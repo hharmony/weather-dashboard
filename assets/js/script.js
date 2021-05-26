@@ -7,8 +7,23 @@ check value in username variable - pass it to getUserRepos
 
 uses form to search github repos, next will display
 
+api: api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1a41d11e381d8d69893453d1845cf5b8
 */
 
+var getWeather = function(city) {
+    //open weather api
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=1a41d11e381d8d69893453d1845cf5b8";    
+
+    //make request to url
+    fetch(apiUrl).then(function(response){
+        response.json().then(function(data) {
+            console.log(data);
+        });
+    });
+};
+
+
+getWeather("New York");
 /* 
 6.2.5 displaying repo
 
