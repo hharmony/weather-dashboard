@@ -4,6 +4,7 @@ var apiUrl1 = "http://api.openweathermap.org/data/2.5/weather?q=Toronto&appid="
 var cityFormEl = document.querySelector("#city-form"); //userFormEl
 var nameInputEl = document.querySelector("#city-name");
 var citySearchTermEl = document.querySelector("#city-search-term"); // repo search term
+var weatherContainerEl = document.querySelector("#weather-container"); //repoContainerEl
 
 
 var formSubmitHandler = function(event) {
@@ -14,6 +15,7 @@ var formSubmitHandler = function(event) {
 
     if (city) {
         getWeather(city);
+
         nameInputEl.value = "";
     }else {
         alert("Please enter a city");
@@ -27,30 +29,82 @@ var getWeather = function(city) { //getUserRepos(user)
     var apiUrl1 = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
     
     fetch(apiUrl1).then(function(response) {
-        if (response.ok) {
         response.json().then(function(data) {            
             var lon = data.coord["lon"];
             var lat = data.coord["lat"];
 
-            console.log(data, city, lon, lat);
+            // console.log(data, city, lon, lat);
             //weather info using lon and lat
-            var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+            var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=metric";
             
             fetch(apiUrl2).then(function(response){
-                response.json().then(function(stuff){
-                    console.log(stuff);
-                })
+                response.json().then(function(weatherData){
+                    // console.log(weatherData);
+                    displayWeather(weatherData, city);
+                    
+                    var currentTemp = weatherData.current["temp"];
+                    var currentWind = weatherData.current["wind_speed"];
+                    var currentHumidity = weatherData.current["humidity"];
+                    var currentUv = weatherData.current["uvi"];
+                // console.log(currentTemp, currentWind, currentHumidity, currentUv, weatherData);
+                displayWeather (data, currentTemp, currentWind, currentHumidity, currentUv, city);
+            
+                //clear old content
+                weatherContainerEl.textContent = "";
+                //display searched city name
+                citySearchTermEl.textContent = city;
+
+                //create container for T/W/H/U
+                var tempEl = document.createElement("div");
+                    // add class lists*****
+                var windEl = document.createElement("div");
+                var humEl = document.createElement("div");
+                var uvEl = document.createElement("div")
+
+                //create span to hold temp
+                var tempDegEl = document.createElement("span");
+                tempDegEl.textContent = "Current Temperature: " + currentTemp;
+
+                var windSpEl = document.createElement("span");
+                windSpEl.textContent = "Wind Speed: " + currentWind;
+
+                var humidexEl = document.createElement("span");
+                humidexEl.textContent = "Humidity: " + currentHumidity;
+
+                var uviEl = document.createElement("span");
+                uviEl.textContent = "UV Index: " + currentUv;
+
+                // append to container
+                tempEl.appendChild(tempDegEl);
+                windEl.appendChild(windSpEl);
+                humEl.appendChild(humidexEl);
+                uvEl.appendChild(uviEl);
+
+
+                //append Container to dom
+                weatherContainerEl.appendChild(tempEl);
+                weatherContainerEl.appendChild(windEl);
+                weatherContainerEl.appendChild(humidexEl);
+                weatherContainerEl.appendChild(uviEl);
+            });
             })
         });
-        };
+        
     });
 };
+
+var displayWeather = function(weather, city) {
+    console.log(weather);
+    console.log(city);
+
+}
+
+
+//create a function to display searched city
 
 
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
-
-
 
 
 /*
