@@ -2,8 +2,8 @@
 WHEN I search for a city
 THEN I am presented with current and future conditions for that city and that city is added to the search history
 
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+-WHEN I view current weather conditions for that city
+-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 
 WHEN I view the UV index
 THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
@@ -33,34 +33,38 @@ THEN I am again presented with current and future conditions for that city -->
 <div class="container">
     <div class="row">
         <div class="col-4">
-            <h3>Search for a city</h3>
+            <h3>Search for a City</h3>
             <form id="city-form">
-                <input name="city" id="city-name" type="text" class="form-control" placeholder="City">
+                <input name="city" id="city-name" type="text" class="form-control" placeholder="City">           
                 <button type="submit" class="btn-block btn-primary">Search</button>
             </form>
-            <button class="btn-block">Austin</button>
-            <button class="btn-block">Chicago</button>
-            <button class="btn-block">New York</button>
+            <h3>Search History</h3>
         </div>
 
         <div class="col-8">
             <div class="row" id="current-weather">
-                <h3 class="subtitle"><span id="city-search-term"></span></h3>
-                <div id="weather-container" class="list-group">
-                    <!-- <p id = temperature>Current Temperature<span id="t"></span></p>
-                    <p id = wind>Wind Speed<span id="w"></span></p>
-                    <p id = "humidex">Humidity<span id="h"></span></p>
-                    <p id = "uvi">UV Index<span id="u"></span></p> -->
+                <h5 class="col-8">Weather</h5>
+                <h5 class="col-8"><span id="city-search-term"></span></h5>
+                <div class="row" id="weather-container" class="list-group">
+                    <div class="col-8" id="temp"></div>
+                    <div class="col-8" id="wind"></div>
+                    <div class="col-8" id="humidex"></div>
+                    <div class="col-8" id="wind"></div>
+
                 </div>
             </div>
             <div class="row" id="5-day-forecast">
                 <h5>
                     5-Day Forecast
                 </h5>
+                <div class="col-8" id="date"></div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
 <script src="./assets/js/script.js"></script>
 

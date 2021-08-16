@@ -5,6 +5,9 @@ var cityFormEl = document.querySelector("#city-form"); //userFormEl
 var nameInputEl = document.querySelector("#city-name");
 var citySearchTermEl = document.querySelector("#city-search-term"); // repo search term
 var weatherContainerEl = document.querySelector("#weather-container"); //repoContainerEl
+var displayTemp = document.querySelector("#temp");
+var today = moment();
+var cityArr = [];
 
 
 var formSubmitHandler = function(event) {
@@ -52,26 +55,33 @@ var getWeather = function(city) { //getUserRepos(user)
                 //clear old content
                 weatherContainerEl.textContent = "";
                 //display searched city name
-                citySearchTermEl.textContent = city;
+                var today = moment();
+                citySearchTermEl.textContent = city + "  " + today.format("MM-DD-YYYY"); 
 
-                //create container for T/W/H/U
+                
+                
+                //create containers for T/W/H/U
                 var tempEl = document.createElement("div");
-                    // add class lists*****
+                tempEl.classList = "col-12", "currentEl";   
+                // add class lists*****
                 var windEl = document.createElement("div");
+                windEl.classList = "col-12", "currentEl"; 
                 var humEl = document.createElement("div");
-                var uvEl = document.createElement("div")
+                humEl.classList = "col-12", "currentEl";
+                var uvEl = document.createElement("div");
+                uvEl.classList = "col-12", "currentEl";
 
-                //create span to hold temp
-                var tempDegEl = document.createElement("span");
-                tempDegEl.textContent = "Current Temperature: " + currentTemp;
+                //create spans to hold data
+                var tempDegEl = document.createElement("div");
+                tempDegEl.textContent = "Current Temperature: " + currentTemp + "C";
 
-                var windSpEl = document.createElement("span");
-                windSpEl.textContent = "Wind Speed: " + currentWind;
+                var windSpEl = document.createElement("div");
+                windSpEl.textContent = "Wind Speed: " + currentWind + "km/h";
 
-                var humidexEl = document.createElement("span");
-                humidexEl.textContent = "Humidity: " + currentHumidity;
-
-                var uviEl = document.createElement("span");
+                var humidexEl = document.createElement("div");
+                humidexEl.textContent = "Humidity: " + currentHumidity + "%";
+               
+                var uviEl = document.createElement("div");
                 uviEl.textContent = "UV Index: " + currentUv;
 
                 // append to container
@@ -80,12 +90,11 @@ var getWeather = function(city) { //getUserRepos(user)
                 humEl.appendChild(humidexEl);
                 uvEl.appendChild(uviEl);
 
-
                 //append Container to dom
                 weatherContainerEl.appendChild(tempEl);
                 weatherContainerEl.appendChild(windEl);
                 weatherContainerEl.appendChild(humidexEl);
-                weatherContainerEl.appendChild(uviEl);
+                weatherContainerEl.appendChild(uviEl); 
             });
             })
         });
@@ -99,9 +108,10 @@ var displayWeather = function(weather, city) {
 
 }
 
+//5 day forecast
+
 
 //create a function to display searched city
-
 
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
